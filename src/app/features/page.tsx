@@ -1,8 +1,8 @@
 export default function Features() {
   const features = [
     {
-      icon: '�',
-      title: 'High Perforamnce Packet Filtering',
+      icon: '🧱',
+      title: 'High Performance Packet Filtering',
       description: 'Advanced packet filtering and policy enforcement. Control your network at the lowest level with fine-grained traffic rules.',
     },
     {

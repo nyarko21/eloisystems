@@ -20,16 +20,31 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // In a real application, you would send this data to a backend service
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    // Reset success message after 3 seconds
-    setTimeout(() => setSubmitted(false), 3000);
-  };
+  try {
+    const res = await fetch('https://eloisystems.com:/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      setSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSubmitted(false), 3000);
+      alert('Message submitted');
+    } else {
+      alert('Failed to send message');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Server error');
+  }
+};
 
   return (
     <section id="contact" className="w-full py-20 sm:py-32 px-4 bg-white dark:bg-black">
